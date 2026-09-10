@@ -1,8 +1,11 @@
 name: CI
 
 on:
+  # Push só na branch principal: em branches de trabalho o gatilho de
+  # pull_request já cobre, e escutar os dois disparava a suíte duas vezes
+  # a cada push.
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
 
 jobs:
