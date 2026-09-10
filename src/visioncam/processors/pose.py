@@ -108,7 +108,7 @@ class PoseProcessor(MediaPipeProcessor):
         for start, end in POSE_CONNECTIONS:
             if visible[start] and visible[end]:
                 cv2.line(output, points[start], points[end], (235, 235, 235), 2, cv2.LINE_AA)
-        for point, is_visible in zip(points, visible):
+        for point, is_visible in zip(points, visible, strict=True):
             if is_visible:
                 cv2.circle(output, point, 4, ACCENT, -1, cv2.LINE_AA)
 

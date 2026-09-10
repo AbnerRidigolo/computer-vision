@@ -57,7 +57,7 @@ def extended_fingers(landmarks: Sequence[Any]) -> tuple[bool, ...]:
     wrist = landmarks[WRIST]
     thumb_reference = landmarks[THUMB_REFERENCE]
     states = []
-    for index, (tip, pip) in enumerate(zip(FINGER_TIPS, FINGER_PIPS)):
+    for index, (tip, pip) in enumerate(zip(FINGER_TIPS, FINGER_PIPS, strict=True)):
         reference = thumb_reference if index == 0 else wrist
         states.append(_distance(landmarks[tip], reference) > _distance(landmarks[pip], reference))
     return tuple(states)
@@ -118,14 +118,14 @@ class HandsProcessor(MediaPipeProcessor):
         stats = [f"Mãos detectadas: {len(result.hand_landmarks)}"]
         total_fingers = 0
 
-        for landmarks, handedness in zip(result.hand_landmarks, result.handedness):
+        for landmarks, handedness in zip(result.hand_landmarks, result.handedness, strict=True):
             points = to_pixels(landmarks, width, height)
             fingers = extended_fingers(landmarks)
             total_fingers += sum(fingers)
 
             draw_landmarks(output, points, HAND_CONNECTIONS, point_color=ACCENT)
             # Destaca em verde só as pontas dos dedos estendidos.
-            for is_up, tip in zip(fingers, FINGER_TIPS):
+            for is_up, tip in zip(fingers, FINGER_TIPS, strict=True):
                 if is_up:
                     draw_landmarks(output, [points[tip]], point_color=GOOD, radius=6)
 
@@ -138,7 +138,7 @@ class HandsProcessor(MediaPipeProcessor):
                 color=GOOD,
                 scale=0.6,
             )
-            up_names = [n for n, is_up in zip(FINGER_NAMES, fingers) if is_up]
+            up_names = [n for n, is_up in zip(FINGER_NAMES, fingers, strict=True) if is_up]
             stats.append(f"  {label}: {', '.join(up_names) if up_names else 'nenhum dedo'}")
 
         if result.hand_landmarks:
