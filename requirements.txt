@@ -1,0 +1,11 @@
+# Dependências de execução do VisionCam.
+# Instale com: pip install -r requirements.txt
+
+# OpenCV com suporte a janela (imshow). Em servidores sem interface gráfica,
+# troque por opencv-python-headless e rode sempre com --headless.
+opencv-python>=4.8,<6
+
+numpy>=1.24
+
+# Tasks API do MediaPipe (FaceDetector, HandLandmarker, PoseLandmarker).
+mediapipe>=0.10.9

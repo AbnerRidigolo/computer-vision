@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Testes / cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# Modelos baixados sob demanda (ver `python -m visioncam.models --all`)
+models/*
+!models/.gitkeep
+
+# Saídas geradas em execução
+snapshots/
+recordings/
+*.mp4
+*.avi
+!docs/media/*.mp4
+
+# Sistema operacional / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
